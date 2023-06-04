@@ -1,7 +1,7 @@
-import CurrencyConverter from "@/components/bridge/CurrencyConverter";
 import { useState } from "react";
+import CurrencyConverter from "@/components/bridge/CurrencyConverter";
 
-const index = () => {
+const Index = () => {
   const [currencyData, setCurrencyData] = useState({});
   const [countryCodes, setCountryCodes] = useState([]);
   const [showCountries, setShowCountries] = useState(false);
@@ -26,4 +26,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

@@ -38,7 +38,7 @@ const CurrencyConverter = ({ prop }: any) => {
   };
 
   useEffect(() => {
-    makeRequest();
+    !countryCodes && makeRequest();
   }, []);
 
   return (
@@ -67,18 +67,20 @@ const CurrencyConverter = ({ prop }: any) => {
             <span>Currency Name</span>
             <span>Country Flag</span>
           </p>
-          {countryCodes.map((countryCode: any, index: number) => (
-            <p key={index} className="grid grid-cols-4 place-items-center">
-              <span>{index + 1}</span>
-              <span>{countryCode[0]}</span>
-              <span>{countryCode[1]}</span>
-              <img
-                src={`https://www.countryflagicons.com/SHINY/64/${String(
-                  countryCode[0]
-                ).slice(0, 2)}.png`}
-              ></img>
-            </p>
-          ))}
+          {countryCodes.map((countryCode: any, index: number) => {
+            let code = String(countryCode[0]).slice(0, 2);
+            return (
+              <p key={index} className="grid grid-cols-4 place-items-center">
+                <span>{index + 1}</span>
+                <span>{countryCode[0]}</span>
+                <span>{countryCode[1]}</span>
+                <img
+                  src={`https://www.countryflagicons.com/SHINY/64/${code}.png`}
+                  alt={code}
+                ></img>
+              </p>
+            );
+          })}
         </>
       )}
       {countryCodes && !showCountries && (
