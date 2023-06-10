@@ -7,7 +7,7 @@ const DateCard = ({ setShowMenu }: any) => {
     return newDate.slice(0, 4) + newDate.slice(6);
   };
   return (
-    <div className="fixed h-screen w-screen bg-black/60">
+    <div className="fixed z-[99] h-screen w-screen bg-black/60">
       <div className="fixed left-[50%] top-[50%] flex w-fit min-w-[80%] translate-x-[-50%] translate-y-[-50%] flex-col gap-4 rounded-xl bg-white p-6">
         <p className="flex items-center justify-between whitespace-nowrap text-xl font-bold">
           Pick a Date to Search{" "}

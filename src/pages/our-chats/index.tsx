@@ -20,8 +20,20 @@ const Index = () => {
     console.log(container?.scrollHeight, container?.scrollTop);
   };
 
+  useEffect(() => {
+    var container: any = document.querySelector("#container");
+    var button: any = document.querySelector("#toBottom");
+    container.addEventListener("scroll", () => {
+      if (container.scrollTop > container.scrollHeight - 1000) {
+        button.style.visibility = "hidden";
+      } else {
+        button.style.visibility = "visible";
+      }
+    });
+  }, []);
+
   return (
-    <section className="min-w-screen flex h-[100dvh] flex-col">
+    <section className="mx-auto flex h-[100dvh] w-screen flex-col md:h-screen md:w-[30%]">
       <div className="flex w-full items-center gap-5 bg-[#075E54] p-4 text-white">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +117,7 @@ const Index = () => {
           </svg>
         )}
         {!loader && (
-          <div className="flex flex-col gap-2 bg-black/10 p-4">
+          <div className="flex flex-col gap-1 bg-black/10 p-4">
             {data?.map((item, index: number) => {
               let chatHead =
                 "after:absolute after:top-0 after:left-[-7px] after:border-[7px] after:z-0 after:border-r-white after:border-t-white after:border-l-transparent after:border-b-transparent";
@@ -115,14 +127,23 @@ const Index = () => {
                     <Date inputDate={item?.date} />
                   )}
                   <p
-                    className={`relative z-10 flex w-fit max-w-[80%] gap-2 whitespace-pre-line break-words rounded-md p-2 text-black ${
+                    className={`relative z-20 flex w-fit max-w-[80%] gap-2 whitespace-pre-line break-words rounded-xl p-2 text-sm text-black ${
                       item?.sender == "Sanjay"
                         ? "bg-white"
                         : "self-end bg-[#DCF8C6]"
                     }`}
                   >
+                    <span
+                      className={`${
+                        index == 0 || data[index - 1].sender != item?.sender
+                          ? item?.sender == "Sanjay"
+                            ? "absolute left-[-5px] top-0 z-0 border-[7px] border-b-transparent border-l-transparent border-r-white border-t-white"
+                            : "absolute right-[-5px] top-0 z-0 border-[7px] border-b-transparent border-l-[#DCF8C6] border-r-transparent border-t-[#DCF8C6]"
+                          : ""
+                      }`}
+                    ></span>
                     {item?.message}
-                    <span className="translate-x-1 translate-y-1 self-end whitespace-nowrap pr-1 text-xs text-black/60">
+                    <span className="translate-x-1 translate-y-2 self-end whitespace-nowrap pr-1 text-[10px] text-black/60">
                       {item?.time}
                     </span>
                   </p>
@@ -137,8 +158,9 @@ const Index = () => {
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"
-        className="fixed bottom-6 right-6 z-50 h-8 w-8 rounded-full bg-white p-2 shadow"
+        className="fixed bottom-6 z-50 h-8 w-8 rounded-full bg-white p-2 shadow max-md:right-6 md:left-[61.5%]"
         onClick={scrollToBottom}
+        id="toBottom"
       >
         <path
           fill-rule="evenodd"
@@ -155,7 +177,7 @@ export default Index;
 const Date = ({ inputDate }: any) => {
   return (
     <p
-      className="w-fit self-center rounded-xl bg-black p-2 text-xs tracking-widest text-white"
+      className="my-2 w-fit self-center rounded-xl bg-black p-2 text-xs tracking-widest text-white"
       id={inputDate.replaceAll("/", "")}
     >
       {inputDate}
